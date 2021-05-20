@@ -1,0 +1,128 @@
+<div class="row">
+
+    <!-- FORM -->
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body p-4">
+   
+          <form #personaForm="ngForm" (ngSubmit)="addPersona(personaForm)">
+
+            <input type="hidden" name="_id" #_id="ngModel" [(ngModel)]="personaService.selectedPersona._id">
+
+            <div class="form-group">
+              <label>Nombres</label>
+              <input type="text" name="nombres" #nombres="ngModel" [(ngModel)]="personaService.selectedPersona.nombres"
+                placeholder="Ingrese nombres" class="form-control" required>
+            </div>
+  
+            <div class="form-group">
+              <div class="input-field col-s12">
+                <label >Apellidos</label>
+                <input type="text" name="apellidos" #apellidos="ngModel" [(ngModel)]="personaService.selectedPersona.apellidos"
+                  placeholder="Ingrese apellidos" class="form-control" required>  
+              </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-field col-s12">
+                  <label>Indentificación</label>
+                  <input type="text" name="identificacion" #identificacion="ngModel" [(ngModel)]="personaService.selectedPersona.identificacion"
+                    placeholder="Ingrese indentificacion" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="input-field col-s12">
+                  <label>Fecha Nacimiento</label>
+                  <input type="date" name="fechaNacimiento" #fechaNacimiento="ngModel" [(ngModel)]="personaService.selectedPersona.fechaNacimiento"
+                    placeholder="Ingrese fecha nacimiento" class="form-control">
+                </div>
+            </div>
+
+            <div class="form-group">
+              <label>Provincia</label>
+              <select class="form-select col-s12" name="provincia" (ngModelChange)="onChageProvincia($event)" [(ngModel)]="personaService.selectedPersona.provincia" >
+                <option [value]= "vac.codigo" *ngFor="let vac of provinciaService.provincias" >
+                   {{vac.valor}}
+                 </option>
+              </select>
+          </div>
+          <div class="form-group">
+              <label>Ciudad</label>
+              <select class="form-select col-s12" name="ciudad"  required [(ngModel)]="personaService.selectedPersona.ciudad" >
+                <option [value]= "vac.codigo" *ngFor="let vac of ciudadService.ciudades" >
+                   {{vac.valor}}
+                 </option>
+              </select>
+          </div>
+  
+            <div class="form-group">
+                <label>Tipo Vacuna</label>
+                <select class="form-select col-s12" name="tipoVacuna"  [(ngModel)]="personaService.selectedPersona.tipoVacuna" >
+                  <option [value]= "vac.codigo" *ngFor="let vac of vacunaService.vacunas" >
+                     {{vac.valor}}
+                   </option>
+                </select>
+            </div>
+            <div class="form-group">
+              <label>Lugar Vacunación</label>
+              <div class="input-field col-s12">
+                <input type="text" name="lugarVacunacion" #lugarVacunacion="ngModel" [(ngModel)]="personaService.selectedPersona.lugarVacunacion"
+                  placeholder="Ingrese lugar vacunación" ngModel required class="form-control">
+              </div>
+          </div>
+          <label></label>
+          <div class="form-group">
+             <div class="container">
+                <div class="row">
+                  <div class="col">
+                    <button type="button" class="btn btn-primary mr-2" (click)="resetForm(personaForm)">Limpiar</button>
+                  </div>
+                  <div class="col">
+                    <button type="submit" class="btn btn-secondary" >Guardar</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  
+
+  <div class="col-md-8">
+    <table class="table table-striped">
+      <thead>
+        <th>Nombres</th>
+        <th>Apellidos</th>
+        <th>identificacion</th>
+        <th>Fecha Nacimiento</th>
+        <th>Provincia</th>
+        <th>Ciudad</th>
+        <th>Vacuna</th>
+      </thead>
+      <tbody>
+        <tr *ngFor="let persona of personaService.personas">
+          <td>{{ persona.nombres }}</td>
+          <td>{{ persona.apellidos }}</td>
+          <td>{{ persona.identificacion }}</td>
+          <td>{{ persona.fechaNacimiento }}</td>
+          <td>{{ persona.provincia }}</td>
+          <td>{{ persona.ciudad }}</td>
+          <td>{{ persona.tipoVacuna }}</td>
+          <td>
+            <a (click)="editPersona(persona)" class="btn btn-secondary btn-sm">
+              <i class="material-icons">Modificar</i>
+            </a>
+          </td>
+          <td>
+            <a (click)="deletePersona(persona._id, personaForm)" class="btn btn-danger btn-sm">
+              <i class="material-icons">Eliminar</i>
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  </div>
+  
