@@ -72,6 +72,7 @@ export class PersonaComponent implements OnInit {
   }
   editPersona(persona: Persona) {
     this.personaService.selectedPersona = persona;
+    this.onChageProvincia(this.personaService.selectedPersona.provincia);
   }
 
   deletePersona(_id: string, form: NgForm) {
